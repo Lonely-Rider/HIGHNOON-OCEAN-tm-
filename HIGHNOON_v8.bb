@@ -1,4 +1,16 @@
-Graphics 800,600,32,2 ;mode
+;lis√§tty alkuun fullscreen -toggle
+While Not KeyHit(1)
+Cls
+Text 0,10,"F1 HIGHNOON FULL SCREEN MODE"
+Text 0,40,"F2 WINDOWED SCREEN MODE"
+
+If KeyHit(59) Then Graphics 800,600,32,1:Exit;moodi
+If KeyHit(60) Then Graphics 800,600,32,2:Exit;moodi
+
+Flip
+Wend
+
+
 SeedRnd MilliSecs()
 
 
@@ -9,18 +21,7 @@ AppTitle "COMMODORE 64 HIGHNOON, 1986 OCEAN (tm)"
 Global pic = LoadImage("gfx\logo.png")
 Global kauppala = LoadImage("gfx\city.png")
 
-;While Not KeyHit(1)
-;Cls
-;DrawImage kauppala,0,0
-;Text 0,10,"F1 HIGHNOON FULL SCREEN MODE"
-;Text 0,40,"F2 WINDOWED SCREEN MODE"
 
-;	If KeyHit(59) Then Graphics 800,600,32,1:Exit;moodi
-;	If KeyHit(60) Then Graphics 800,600,32,2:Exit;moodi
-	Graphics 800,600,32,2
-	
-;Flip
-;Wend
 SetBuffer BackBuffer()
 Global leveli = 0
 
@@ -131,7 +132,7 @@ FlushKeys()
 
 
 
-While (Not KeyHit(1)) ; p‰‰valikkosilmukka alkaa
+While (Not KeyHit(1)) ; p√§√§valikkosilmukka alkaa
 	Cls
 
 	cB = PlayMusic("music\theme.mp3")
@@ -181,7 +182,7 @@ cB = PlayMusic("music\forsake.mp3")	:
 
 
 
-	;p‰‰silmukka - - - - - - - - - - - - - -  -  -  -   -   -   -    -      -          
+	;p√§√§silmukka - - - - - - - - - - - - - -  -  -  -   -   -   -    -      -          
 	While (Not KeyHit(1))
 		Cls
 	
@@ -198,7 +199,7 @@ cB = PlayMusic("music\forsake.mp3")	:
 		DrawImage saloonovet,290,243,ovetframe
 		DrawImage sheriffi,x,y,freimi	
 	
-		;buildingit p‰‰lle
+		;buildingit p√§√§lle
 		If y < 265 Then DrawImage buildings,0,0 : DrawImage saloonovet,290,243,ovetframe	
 	
 
@@ -251,7 +252,7 @@ Function rosvojen_muuvit()
 			;Text level\rosvo_x, level\rosvo_y, level\id
 			If (level\rosvo_liikkuu > 1) Then  
 				DrawImage rosvokuva, level\rosvo_x, level\rosvo_y, level\rosvo_freimi
-				If level\moneybag = 1 Then DrawImage bag,level\rosvo_x-5,level\rosvo_y+15 ;jos rosvo k‰vi pankissa, piirret‰‰n rahas‰kki
+				If level\moneybag = 1 Then DrawImage bag,level\rosvo_x-5,level\rosvo_y+15 ;jos rosvo k√§vi pankissa, piirret√§√§n rahas√§kki
 			EndIf
 		
 			;ammuksen liikutus ja piirto
@@ -307,7 +308,7 @@ Function rosvojen_muuvit()
 				ovet_heiluu = 1
 			EndIf
 
-;			;buildingit p‰‰lle
+;			;buildingit p√§√§lle
 			If level\rosvo_y < 264 Then	 
 					DrawImage saloonovet,290,243,ovetframe	
 
@@ -338,7 +339,7 @@ End Function
 
 Function sheriffin_liike()
 
-	;yl‰oikea
+	;yl√§oikea
 	If (KeyDown(200) And KeyDown(205)) Then
 		If (MilliSecs() > liike_ajastin + 100) Then
 			liike_ajastin = MilliSecs()
@@ -351,7 +352,7 @@ Function sheriffin_liike()
 			If (x < 740) And varitunniste_oikea = 1 Then x = x + 5
 		EndIf		
 	EndIf
-	;yl‰mummo
+	;yl√§mummo
 	If (KeyDown(200) And KeyDown(203)) Then
 		If (MilliSecs() > liike_ajastin + 100) Then
 			liike_ajastin = MilliSecs()
@@ -395,7 +396,7 @@ Function sheriffin_liike()
 	If (lentaa = 0) Then If (KeyDown(29)) Then
 		lentaa = 1
 
-		;luodin l‰htˆkohta
+		;luodin l√§ht√∂kohta
 		Select freimi
 		Case 0, 1
 			luoti_x = x - 5
@@ -423,8 +424,8 @@ Function sheriffin_liike()
 			luoti_y = y + 10
 		End Select
 		
-		;oikea 2,3      vasen 0,1      ylˆs 4,5      		alas 6,7
-		;yl‰oikea 8,9	yl‰vasen 10,11	alaoikea 14,15		alavasen 12,13		
+		;oikea 2,3      vasen 0,1      yl√∂s 4,5      		alas 6,7
+		;yl√§oikea 8,9	yl√§vasen 10,11	alaoikea 14,15		alavasen 12,13		
 		freimi_suunta = freimi
 	EndIf
 
@@ -452,7 +453,7 @@ Function sheriffin_liike()
 			If (x > 20) And varitunniste_vasen = 1 Then x = x - 5
 		EndIf		
 	EndIf
-	;ylˆs
+	;yl√∂s
 	If (KeyDown(200)) Then
 		If (MilliSecs() > liike_ajastin + 100) Then
 			liike_ajastin = MilliSecs()
@@ -635,7 +636,7 @@ For level.rosvo = Each rosvo
 	
 	;If (MilliSecs() > level\rosvo_ajastin + 1000) Then level\rosvo_liikkuu = 1
 
-	If (level\rosvo_liikkuu = 1) Then ;t‰ss‰ rosvo tehd‰‰n / regeneroituu, ellei niit‰ ole jo max-m‰‰r‰ ulkona
+	If (level\rosvo_liikkuu = 1) Then ;t√§ss√§ rosvo tehd√§√§n / regeneroituu, ellei niit√§ ole jo max-m√§√§r√§ ulkona
 		If (MilliSecs() > level\rosvo_ajastin + level\ad) Then 
 			If (rosvoja_liikkeella < rosvoja_max) Then 
 				level\rosvo_liikkuu = 10 : rosvoja_liikkeella = rosvoja_liikkeella + 1
@@ -645,10 +646,10 @@ For level.rosvo = Each rosvo
 	EndIf
 	
 	
-	If (level\rosvo_liikkuu = 10) Then ; regeneroidaan viiveell‰
+	If (level\rosvo_liikkuu = 10) Then ; regeneroidaan viiveell√§
 		If (MilliSecs() > level\rosvo_ajastin2 + 3000) Then level\rosvo_liikkuu = 2
 		level\rosvo_freimi_suunta = 0
-		level\rosvo_y = Rnd(330,450) ;regeneroidessa t‰ytyy antaa y-arvo uudestaan
+		level\rosvo_y = Rnd(330,450) ;regeneroidessa t√§ytyy antaa y-arvo uudestaan
 	EndIf
 	
 
@@ -664,7 +665,7 @@ If (MilliSecs() > level\rosvo_liike_ajastin + 100 And level\rosvo_liikkuu < 19) 
 
 	If level\rosvo_ampuu <> 2 Then 
 		Select level\rosvo_liikkuu
-	Case 2 ; rosvo l‰htee liikkeelle
+	Case 2 ; rosvo l√§htee liikkeelle
 			
 			If (level\rosvo_suunta > 50) Then	 ; rosvo tulee oikealta
 			
@@ -678,7 +679,7 @@ If (MilliSecs() > level\rosvo_liike_ajastin + 100 And level\rosvo_liikkuu < 19) 
 					If level\rosvo_x < level\rk+120 Then level\rosvo_y = level\rosvo_y - 3
 				Else
 					level\rosvo_liikkuu = 3
-					;rosvo on mennyt sis‰lle
+					;rosvo on mennyt sis√§lle
 				EndIf
 
 				
@@ -701,7 +702,7 @@ If (MilliSecs() > level\rosvo_liike_ajastin + 100 And level\rosvo_liikkuu < 19) 
 					If level\rosvo_x > level\rk-120 Then level\rosvo_y = level\rosvo_y - 3
 				Else
 					level\rosvo_liikkuu = 3
-					;rosvo on mennyt sis‰lle
+					;rosvo on mennyt sis√§lle
 				EndIf
 
 				If level\rosvo_x =< level\rk Then
@@ -712,7 +713,7 @@ If (MilliSecs() > level\rosvo_liike_ajastin + 100 And level\rosvo_liikkuu < 19) 
 				EndIf
 				
 			EndIf
-	 Case 3; pankkirosvo on mennyt juuri pankin tai saluunan ovesta, mit‰ sis‰ll‰ tapahtuu?
+	 Case 3; pankkirosvo on mennyt juuri pankin tai saluunan ovesta, mit√§ sis√§ll√§ tapahtuu?
 		If (level\rosvo_suunta > 50) Then ; rosvo tulee oikealta
 				If (level\rosvo_x > level\rk-80)Then 
 					level\rosvo_x = level\rosvo_x - 3
@@ -720,7 +721,7 @@ If (MilliSecs() > level\rosvo_liike_ajastin + 100 And level\rosvo_liikkuu < 19) 
 				Else
 					level\rosvo_liikkuu = 4
 					;If level\rk > 400 Then 
-					level\moneybag = 1 ;pankkirosvolle s‰kki k‰teen
+					level\moneybag = 1 ;pankkirosvolle s√§kki k√§teen
 				EndIf
 		Else ; rosvo tulee vasemmalta
 				If (level\rosvo_x < level\rk+80)Then 
@@ -729,10 +730,10 @@ If (MilliSecs() > level\rosvo_liike_ajastin + 100 And level\rosvo_liikkuu < 19) 
 				Else
 					level\rosvo_liikkuu = 4
 					;If level\rk > 400 Then 
-					level\moneybag = 1 ;pankkirosvolle s‰kki k‰teen
+					level\moneybag = 1 ;pankkirosvolle s√§kki k√§teen
 				EndIf
 		EndIf  	
-	Case 4	;k‰‰ntyy sis‰lt‰ takaisinp‰in
+	Case 4	;k√§√§ntyy sis√§lt√§ takaisinp√§in
 		If (level\rosvo_suunta > 50) Then ; rosvo tulee oikealta
 				If (level\rosvo_x < level\rk) Then 
 					level\rosvo_x = level\rosvo_x + 3
@@ -749,7 +750,7 @@ If (MilliSecs() > level\rosvo_liike_ajastin + 100 And level\rosvo_liikkuu < 19) 
 					level\rosvo_liikkuu = 5
 				EndIf
 		EndIf
-	Case 5 ;Bandit tulee ulos ja l‰htee livohkaan
+	Case 5 ;Bandit tulee ulos ja l√§htee livohkaan
 		If (level\rosvo_suunta > 50) Then ; rosvo tulee oikealta
 				If (level\rosvo_x < 830) Then 
 					If (level\rosvo_y > 290) Then 
@@ -760,9 +761,9 @@ If (MilliSecs() > level\rosvo_liike_ajastin + 100 And level\rosvo_liikkuu < 19) 
 					EndIf
 					level\rosvo_y = level\rosvo_y + 3				
 				Else
-					level\rosvo_liikkuu = 18 ; rosvo p‰‰si livohkaan
+					level\rosvo_liikkuu = 18 ; rosvo p√§√§si livohkaan
 					rosvoja_liikkeella = rosvoja_liikkeella - 1
-					level\moneybag = 0 ; poistetaan s‰kki k‰dest‰
+					level\moneybag = 0 ; poistetaan s√§kki k√§dest√§
 					level\rosvo_y = Rnd(330,450)
 				EndIf
 				
@@ -776,9 +777,9 @@ If (MilliSecs() > level\rosvo_liike_ajastin + 100 And level\rosvo_liikkuu < 19) 
 					EndIf
 					level\rosvo_y = level\rosvo_y + 3
 				Else
-					level\rosvo_liikkuu = 18 ; rosvo p‰‰si livohkaan
+					level\rosvo_liikkuu = 18 ; rosvo p√§√§si livohkaan
 					rosvoja_liikkeella = rosvoja_liikkeella - 1
-					level\moneybag = 0 ;poistetaan s‰kki k‰sist‰
+					level\moneybag = 0 ;poistetaan s√§kki k√§sist√§
 					level\rosvo_y = Rnd(330,450)
 				EndIf
 		EndIf
@@ -790,7 +791,7 @@ If (MilliSecs() > level\rosvo_liike_ajastin + 100 And level\rosvo_liikkuu < 19) 
 	;rosvojen ammuskelu, osio 2
 	If (level\rosvo_y > 270 And level\rosvo_ampuu = 1 And MilliSecs() > level\rosvo_ampuu_ajastin + 50) Then
 
-		;mihin suuntaan rosvo k‰‰ntyy ampuessaan
+		;mihin suuntaan rosvo k√§√§ntyy ampuessaan
 
 		If x < level\rosvo_x-20 Then 					
 			If y < level\rosvo_y-20 Then 
@@ -825,7 +826,7 @@ If (MilliSecs() > level\rosvo_liike_ajastin + 100 And level\rosvo_liikkuu < 19) 
 		
 	EndIf
 
-	;lenn‰tt‰‰ luodit
+	;lenn√§tt√§√§ luodit
 		If level\rosvo_ampuu > 1 Then
 				;ammus_lentaa2()
 			If level\ampu_lentaa = 1 Then 
@@ -912,7 +913,7 @@ Function lopputekstit()
 		credit$(28)  =  "      for original game       "
 		credit$(29)  =  "                              "
 		credit$(30)  =  "    We hope that our game     "
-		credit$(31)  =  "     doesn¥t violate any      "
+		credit$(31)  =  "     doesn¬¥t violate any      "
 		credit$(32)  =  "        coding rights.        "
 		credit$(33)  =  "                              "
 		credit$(34)  =  "                              "
@@ -937,8 +938,8 @@ Function lopputekstit()
 					i = i + 1
 				Wend
 		
-				If ((y+15) < -10) Then vah = 1;aloitetaan yl‰osasta v‰hent‰m‰‰n tekstej‰
-				y = y - 1 ;siirret‰‰n teksti‰ ylˆs
+				If ((y+15) < -10) Then vah = 1;aloitetaan yl√§osasta v√§hent√§m√§√§n tekstej√§
+				y = y - 1 ;siirret√§√§n teksti√§ yl√∂s
 				lisays = 0
 				more = more + 1
 				more2 = more2 + 1
